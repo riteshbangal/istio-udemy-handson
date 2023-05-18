@@ -2,7 +2,7 @@ kind: VirtualService
 apiVersion: networking.istio.io/v1alpha3
 metadata:
   name: fleetman-staff-service
-  namespace: default
+  namespace: istio-udemy
 spec:
   hosts:
     - fleetman-staff-service
@@ -24,7 +24,7 @@ kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
 metadata:
   name: fleetman-staff-service
-  namespace: default
+  namespace: istio-udemy
 spec:
   host: fleetman-staff-service
   subsets:

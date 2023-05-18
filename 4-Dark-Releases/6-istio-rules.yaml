@@ -17,7 +17,7 @@ kind: VirtualService
 apiVersion: networking.istio.io/v1alpha3
 metadata:
   name: fleetman-webapp
-  namespace: default
+  namespace: istio-udemy
 spec:
   hosts:      # which incoming host are we applying the proxy rules to???
     - "*"
@@ -41,7 +41,7 @@ kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
 metadata:
   name: fleetman-webapp
-  namespace: default
+  namespace: istio-udemy
 spec:
   host: fleetman-webapp
   subsets:
