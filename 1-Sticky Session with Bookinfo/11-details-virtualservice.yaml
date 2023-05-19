@@ -5,23 +5,9 @@
 #   namespace: bookinfo
 # spec:
 #   hosts:
-#   - "*"
-#   gateways:
-#   - bookinfo-gateway
+#     - details.bookinfo.svc.cluster.local
 #   http:
-#   - match:
-#     - uri:
-#         prefix: /details
-#     - uri:
-#         prefix: /static
-#     - uri:
-#         exact: /login
-#     - uri:
-#         exact: /logout
-#     - uri:
-#         prefix: /api/v1/products
-#     route:
+#   - route:
 #     - destination:
-#         host: productpage
-#         port:
-#           number: 9080
+#         host: details.bookinfo.svc.cluster.local
+#         subset: details-subset

@@ -5,10 +5,15 @@ metadata:
   namespace: bookinfo
 spec:
   host: details
-  subsets:
-  - name: v1
-    labels:
-      version: v1
-  - name: v2
-    labels:
-      version: v2
+  trafficPolicy:
+    loadBalancer:
+      # Consistent Hash-based load balancing can be used to provide 
+      # soft session affinity based on HTTP headers, cookies or other properties. 
+      consistentHash: 
+        # Set to true for hash based on the source IP address. 
+        # Note: This is applicable for both TCP and HTTP connections.
+        useSourceIp: true 
+  # subsets:
+  #   - name: details-subset
+  #     labels:
+  #       version: v1
