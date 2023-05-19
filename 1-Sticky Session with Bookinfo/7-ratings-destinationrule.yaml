@@ -1,7 +1,8 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: ratings
+  name: ratings-dr
+  namespace: bookinfo
 spec:
   host: ratings
   subsets:
