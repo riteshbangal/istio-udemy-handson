@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: details-dr
+  namespace: bookinfo
+spec:
+  host: details
+  trafficPolicy:
+    loadBalancer:
+      # Consistent Hash-based load balancing can be used to provide 
+      # soft session affinity based on HTTP headers, cookies or other properties. 
+      consistentHash: 
+        # Set to true for hash based on the source IP address. 
+        # Note: This is applicable for both TCP and HTTP connections.
+        useSourceIp: false 
+  # subsets:
+  #   - name: details-subset
+  #     labels:
+  #       version: v1

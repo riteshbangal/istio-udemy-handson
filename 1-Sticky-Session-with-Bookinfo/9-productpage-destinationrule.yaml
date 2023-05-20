@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: productpage-dr
+  name: productpage
   namespace: bookinfo
 spec:
   host: productpage
