@@ -43,7 +43,7 @@ $ openssl x509 -req -days 365 -CA $DOMAIN_NAME.crt -CAkey $DOMAIN_NAME.key -set_
 
 2. Bring it inside the cluster --> Kubernetes Secret
 
-$ kubectl create -n bookinfo secret tls bookinfo-credential --key=myclient.bookinfo.com.key --cert=myclient.bookinfo.com.crt
+$ kubectl create -n istio-system secret tls bookinfo-credential --key=myclient.bookinfo.com.key --cert=myclient.bookinfo.com.crt
 
 3. Configure the Gateway --> Point to the secret
 

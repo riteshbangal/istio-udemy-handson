@@ -5,7 +5,7 @@ metadata:
   namespace: helloworld
 spec:
   hosts:
-    - '*'
+    - hello.tetratelabs.dev
   gateways:
     - public-gateway
   http:
