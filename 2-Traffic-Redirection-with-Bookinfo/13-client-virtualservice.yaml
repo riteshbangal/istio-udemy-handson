@@ -30,6 +30,7 @@ spec:
         host: app-gw.eintuition.net
         port:
           number: 443
+        # subset: simple-tls-connection
   - match:
     - uri:
         exact: /mtls
@@ -40,4 +41,30 @@ spec:
         host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
         port:
           number: 443
-        #subset: mtls-connection
+        # subset: mtls-connection
+  
+  # Folllowing one is just for redirection
+  - match:
+    - uri:
+        exact: /app
+    rewrite:
+      uri: "/productpage"
+    route:
+    - destination:
+        host: productpage.bookinfo.svc.cluster.local
+        port:
+          number: 9080
+  - match:
+    - uri:
+        prefix: /static
+    - uri:
+        exact: /login
+    - uri:
+        exact: /logout
+    - uri:
+        prefix: /api/v1/products
+    route:
+    - destination:
+        host: productpage.bookinfo.svc.cluster.local
+        port:
+          number: 9080

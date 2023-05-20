@@ -3,6 +3,11 @@ $ kubectl -n istio-system port-forward service/kiali 20001
 $ kubectl exec "$(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}')" -c ratings -- curl -sS productpage:9080/productpage | grep -o "<title>.*</title>"
 
 
+Deployment and Service for Ingress Gateway
+Gateway object to enable Ingress gateway to receive traffic
+Virtual Service to link services and routing rules to Ingress Gateway
+
+
 $ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 $ curl -s "http://${GATEWAY_URL}/productpage" | grep -o "<title>.*</title>"
 
