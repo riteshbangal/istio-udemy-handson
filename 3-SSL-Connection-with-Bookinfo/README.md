@@ -6,7 +6,8 @@ $ kubectl exec "$(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadat
 Deployment and Service for Ingress Gateway
 Gateway object to enable Ingress gateway to receive traffic
 Virtual Service to link services and routing rules to Ingress Gateway
-
+selector:
+  istio: ingressgateway ---> image: docker.io/istio/proxyv2:1.17.2
 
 $ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 $ curl -s "http://${GATEWAY_URL}/productpage" | grep -o "<title>.*</title>"
@@ -25,3 +26,29 @@ $ cd /Users/riteshbangal/Geeks/workshop/istio/Certificates/nginx/server/v2
 
 $ sudo vim /etc/hosts
 $ sudo dscacheutil -flushcache
+
+------------------------------------------------------------------------------------------
+# SSL Certs and Gateway
+1. Get the self signed certificates
+
+$ export DOMAIN_NAME=bookinfo.com
+$ mkdir bookinfo-certs
+$ cd bookinfo-certs
+
+$ openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=$DOMAIN_NAME Inc./CN=$DOMAIN_NAME' -keyout $DOMAIN_NAME.key -out $DOMAIN_NAME.crt 
+
+$ openssl req -out myclient.$DOMAIN_NAME.csr -newkey rsa:2048 -nodes -keyout myclient.$DOMAIN_NAME.key -subj "/CN=myclient.$DOMAIN_NAME/O=myclient from $DOMAIN_NAME"
+
+$ openssl x509 -req -days 365 -CA $DOMAIN_NAME.crt -CAkey $DOMAIN_NAME.key -set_serial 0 -in myclient.$DOMAIN_NAME.csr -out myclient.$DOMAIN_NAME.crt
+
+2. Bring it inside the cluster --> Kubernetes Secret
+
+$ kubectl create -n bookinfo secret tls bookinfo-credential --key=myclient.bookinfo.com.key --cert=myclient.bookinfo.com.crt
+
+3. Configure the Gateway --> Point to the secret
+
+4. Test the flow:
+
+$ curl -H "Host:myclient.bookinfo.com" --cacert bookinfo.com.crt "https://myclient.bookinfo.com:443/app"
+
+$ curl -H "Host:myclient.bookinfo.com" --resolve "myclient.bookinfo.com:443:$INGRESS_IP" --cacert bookinfo.com.crt "https://myclient.bookinfo.com:443/app"

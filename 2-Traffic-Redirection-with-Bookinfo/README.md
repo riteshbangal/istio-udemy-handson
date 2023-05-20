@@ -6,6 +6,8 @@ $ kubectl exec "$(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadat
 Deployment and Service for Ingress Gateway
 Gateway object to enable Ingress gateway to receive traffic
 Virtual Service to link services and routing rules to Ingress Gateway
+selector:
+  istio: ingressgateway ---> image: docker.io/istio/proxyv2:1.17.2
 
 
 $ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
