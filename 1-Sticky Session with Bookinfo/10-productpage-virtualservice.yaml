@@ -25,3 +25,7 @@ spec:
         host: productpage
         port:
           number: 9080
+    headers:
+      response:
+        add:
+          custom-header: CUSTOM_HEADER_PRODUCTPAGE

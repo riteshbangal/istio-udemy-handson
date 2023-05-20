@@ -12,7 +12,7 @@ spec:
       consistentHash: 
         # Set to true for hash based on the source IP address. 
         # Note: This is applicable for both TCP and HTTP connections.
-        useSourceIp: true 
+        useSourceIp: false 
   # subsets:
   #   - name: details-subset
   #     labels:
