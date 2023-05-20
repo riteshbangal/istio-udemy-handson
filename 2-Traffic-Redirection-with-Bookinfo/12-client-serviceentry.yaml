@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: my-web-app-service-entry
+  namespace: bookinfo
+spec:
+  hosts:
+  - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  ports:
+  - number: 80
+    name: http
+    protocol: HTTP
+  - number: 443
+    name: https
+    protocol: TLS
+  resolution: DNS
+  location: MESH_EXTERNAL
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: app-gw-eintuition-service-entry
+  namespace: bookinfo
+spec:
+  hosts:
+  - app-gw.eintuition.net
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL

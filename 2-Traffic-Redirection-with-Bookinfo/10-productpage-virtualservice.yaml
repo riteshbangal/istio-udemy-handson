@@ -5,9 +5,10 @@ metadata:
   namespace: bookinfo
 spec:
   hosts:
-  - "*"
+  # - "*"
+  - "bookinfo.com" # For this please make an entry in /etc/hosts
   gateways:
-  - bookinfo-gateway
+  - bookinfo-ingress-gateway
   http:
   - match:
     - uri:

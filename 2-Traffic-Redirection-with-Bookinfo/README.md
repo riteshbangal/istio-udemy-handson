@@ -16,3 +16,7 @@ $ curl -I https://app-gw.eintuition.net/api/portfolio?username=riteshbangal
 
 $ cd /Users/riteshbangal/Geeks/workshop/istio/Certificates/nginx/server/v2
 ..v2> $ curl -ksI --cert client.crt --key client.key https://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com/ | grep  HTTP
+
+
+$ sudo vim /etc/hosts
+$ sudo dscacheutil -flushcache

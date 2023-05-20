@@ -10,7 +10,7 @@ spec:
   - route:
     - destination:
         host: details.bookinfo.svc.cluster.local
-        # subset: details-subset
+        subset: details-subset
     headers:
       response:
         add:
