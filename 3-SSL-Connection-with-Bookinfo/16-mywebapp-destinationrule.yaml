@@ -39,8 +39,12 @@ spec:
         # error setting certificate verify locations, continuing anyway:
         # *   CAfile: /etc/ssl/certs/ca-certificates.crt
         #   CApath: /etc/ssl/certs
+        # **** Or *****
+        # * Unknown SSL protocol error in connection to ec2-3-125-207-155.eu-central-1.compute.amazonaws.com:443
+        # * Curl_http_done: called premature == 1
+        # * stopped the pause stream!
 
         credentialName: mywebapp-mtls-credential
-        # clientCertificate: /etc/certs/tls.crt
-        # privateKey: /etc/certs/tls.key
-        # caCertificates: /etc/certs/ca.crt
+        # clientCertificate: /etc/ssl/certs/tls.crt
+        # privateKey: /etc/ssl/certs/tls.key
+        # caCertificates: /etc/ssl/certs/ca.crt

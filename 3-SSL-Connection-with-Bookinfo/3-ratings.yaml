@@ -52,7 +52,7 @@ spec:
         # sidecar.istio.io/cert-chain: /etc/certs/tls.crt
         # sidecar.istio.io/key: /etc/certs/tls.key
         # sidecar.istio.io/root-cert: /etc/certs/ca.crt
-        sidecar.istio.io/userVolumeMount: '[{"name":"mywebapp-mtls-certs", "mountPath":"/etc/certs", "readonly":true}]'
+        sidecar.istio.io/userVolumeMount: '[{"name":"mywebapp-mtls-certs", "mountPath":"/etc/ssl/certs", "readonly":true}]'
         sidecar.istio.io/userVolume: '[{"name":"mywebapp-mtls-certs", "secret":{"secretName":"mywebapp-mtls-credential"}}]'
 
     spec:
@@ -67,7 +67,7 @@ spec:
           runAsUser: 1000
         volumeMounts:
         - name: mywebapp-mtls-certs
-          mountPath: /etc/certs
+          mountPath: /etc/ssl/certs
           # readOnly: true
       volumes:
       - name: mywebapp-mtls-certs
