@@ -5,12 +5,40 @@ metadata:
   namespace: helloworld
 spec:
   hosts:
-    - hello.tetratelabs.dev
+    - hello.tetratelabs.dev 
   gateways:
     - public-gateway
   http:
-    - route:
-      - destination:
-          host: hello-world.helloworld.svc.cluster.local
-          port:
-            number: 80
+  - match:
+    - uri:
+        exact: /nginx
+    rewrite:
+      uri: "/"  
+    route:
+    - destination:
+        host: nginx-tls-proxy.helloworld.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /health
+    rewrite:
+      uri: "/healthz"  
+    route:
+    - destination:
+        host: nginx-tls-proxy.helloworld.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
+        exact: /proxy
+    route:
+    - destination:
+        host: nginx-tls-proxy.helloworld.svc.cluster.local
+        port:
+          number: 80
+  - route:
+    - destination:
+        host: hello-world.helloworld.svc.cluster.local
+        port:
+          number: 80

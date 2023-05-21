@@ -9,14 +9,6 @@ spec:
   gateways:
     - public-gateway
   http:
-  - match:
-    - uri:
-        exact: /health
-    route:
-    - destination:
-        host: nginx-tls-proxy.helloworld.svc.cluster.local
-        port:
-          number: 80
   - route:
     - destination:
         host: hello-world.helloworld.svc.cluster.local
