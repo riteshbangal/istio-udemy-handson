@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hello-world-vs
+  namespace: helloworld
+spec:
+  hosts:
+    - hello.tetratelabs.dev
+  gateways:
+    - public-gateway
+  http:
+    - route:
+      - destination:
+          host: hello-world.helloworld.svc.cluster.local
+          port:
+            number: 80

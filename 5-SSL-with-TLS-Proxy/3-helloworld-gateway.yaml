@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: public-gateway
+  namespace: helloworld
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: tetratelabs-credential
+      hosts:
+        # $ curl -H "Host:hello.tetratelabs.dev" --resolve "hello.tetratelabs.dev:443:$INGRESS_IP" --cacert tetratelabs.dev.crt "https://hello.tetratelabs.dev:443"
+        - hello.tetratelabs.dev
