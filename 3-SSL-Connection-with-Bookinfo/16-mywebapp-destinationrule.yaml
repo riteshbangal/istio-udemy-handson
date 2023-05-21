@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: mywebapp-mtls-url-dr
+  namespace: bookinfo
+spec:
+  host: ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+  workloadSelector:
+    matchLabels:
+      app: ratings
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 443
+      tls:
+        mode: MUTUAL
+        # The name of the secret that holds the TLS certs for the client including the CA certificates. 
+        # Secret must exist in the same namespace with the proxy using the certificates. 
+        # The secret (of type generic)should contain the following keys and values: 
+        #     key: <privateKey>, cert: <clientCert>, cacert: <CACertificate>. 
+        # Here CACertificate is used to verify the server certificate. 
+        # $ kubectl create secret generic mywebapp-mtls-credential --key=client.key --cert=client.crt --cacert=ca.crt
+        # kubectl create secret generic mywebapp-mtls-credential --from-file=tls.key=client.key --from-file=tls.crt=client.crt --from-file=ca.crt=ca.crt
+
+
+        # Secret of type tls for client certificates along with ca.crt key for CA certificates is also supported. 
+        # Only one of client certificates and CA certificate or credentialName can be specified.
+        # $ kubectl create -n istio-system secret tls  mywebapp-mtls-credential --key=client.key --cert=client.crt --cacert=ca.crt
+        
+        # NOTE: This field is applicable at sidecars only if DestinationRule has a workloadSelector specified. 
+        #       Otherwise the field will be applicable only at gateways, and sidecars will continue to use the certificate paths.
+
+        # Error: [2023-05-21T11:30:12.218Z] "- - -" 0 UF,URX - - "TLS_error:_Secret_is_not_supplied_by_SDS" 
+        # 0 0 36 - "-" "-" "-" "-" "3.125.207.155:443" outbound|443||ec2-3-125-207-155.eu-central-1.compute.amazonaws.com - 
+        # 3.125.207.155:443 10.1.0.143:37264 ec2-3-125-207-155.eu-central-1.compute.amazonaws.com -
+        # Troubleshoot:
+        # error setting certificate verify locations, continuing anyway:
+        # *   CAfile: /etc/ssl/certs/ca-certificates.crt
+        #   CApath: /etc/ssl/certs
+
+        credentialName: mywebapp-mtls-credential
+        # clientCertificate: /etc/certs/tls.crt
+        # privateKey: /etc/certs/tls.key
+        # caCertificates: /etc/certs/ca.crt

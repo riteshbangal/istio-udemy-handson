@@ -1,0 +1,18 @@
+# apiVersion: networking.istio.io/v1alpha3
+# kind: Gateway
+# metadata:
+#   name: mywebapp-gateway # Not working
+#   namespace: bookinfo
+# spec:
+#   selector:
+#     istio: ingressgateway
+#   servers:
+#   - port:
+#       number: 443
+#       name: https
+#       protocol: TLS
+#     hosts:
+#     - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+#     tls:
+#       mode: AUTO_PASSTHROUGH # SIMPLE/MUTUAL - Not working
+#       credentialName: mywebapp-mtls-credential # Not working

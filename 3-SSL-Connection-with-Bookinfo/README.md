@@ -49,6 +49,20 @@ $ kubectl create -n istio-system secret tls bookinfo-credential --key=myclient.b
 
 4. Test the flow:
 
-$ curl -H "Host:myclient.bookinfo.com" --cacert bookinfo.com.crt "https://myclient.bookinfo.com:443/app"
+$ curl --cacert bookinfo.com.crt "https://myclient.bookinfo.com:443/app"
+$ curl -kv "https://myclient.bookinfo.com:443/app"
 
 $ curl -H "Host:myclient.bookinfo.com" --resolve "myclient.bookinfo.com:443:$INGRESS_IP" --cacert bookinfo.com.crt "https://myclient.bookinfo.com:443/app"
+
+
+------------------------------------------------------------------------------------------
+Try: Fix MTLS - ec2-3-125-207-155.eu-central-1.compute.amazonaws.com
+$ kubectl create -n istio-system secret tls  mywebapp-mtls-credential --cert=client.crt --key=client.key
+
+$ curl -H "Host:myclient.bookinfo.com" "https://ec2-3-125-207-155.eu-central-1.compute.amazonaws.com"
+
+
+
+------------------------------------------------------------------------------------------
+Reference: https://github.com/tetratelabs/istio-weekly/tree/main/istio-weekly/005
+

@@ -13,7 +13,7 @@ spec:
       protocol: HTTP
     hosts:
     - "*.bookinfo.com"
-    - "myclient.bookinfo.com"
+    # - "myclient.bookinfo.com"
     tls:
       httpsRedirect: true # Sends 301 redirect for http requests
   - port:
@@ -24,7 +24,7 @@ spec:
     - myclient.bookinfo.com
     tls:
       mode: SIMPLE
-      credentialName: bookinfo-credential
+      credentialName: bookinfo-credential  # Working: Create the secret in the istio-system namespace and reference it from the Gateway resource
       # Note: Both foo-com-public.pem and foo-com-privatekey.pem in Example 8-16 are long-lived certificates for foo.com 
       # such as you would get from a CA like Let’s Encrypt. 
       # Unfortunately, Istio doesn’t handle these types of certificates today, 
